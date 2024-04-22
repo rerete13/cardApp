@@ -290,6 +290,8 @@ def add(data:fs.Datasy):
         conn.close()
         page.update()
         
+        page.go('/')
+        
         
         
     def appbar_page(title:str, color):
@@ -363,18 +365,18 @@ def add(data:fs.Datasy):
             ),
         ],
         floating_action_button = FloatingActionButton(
-            alignment=MainAxisAlignment.CENTER, spacing=5,
             bgcolor=ColorPage.purple,
             on_click=add_card,
             width=300,
             shape=RoundedRectangleBorder(radius=10),
             content=Row(
-            [
-                Icon(icons.ADD_CARD_ROUNDED, color=ColorPage.text),
-                Text("Add", color=ColorPage.text)
+                alignment=MainAxisAlignment.CENTER,
+                controls=[
+                    Icon(icons.ADD_CARD_ROUNDED, color=ColorPage.text),
+                    Text("Add", color=ColorPage.text),
                 ],
-        ),
             ),
+        ),
             
         floating_action_button_location= FloatingActionButtonLocation.MINI_CENTER_FLOAT
         
@@ -425,7 +427,7 @@ def add(data:fs.Datasy):
     cursor.execute("SELECT * FROM cards WHERE id = ?", str(page.client_storage.get('card_id')))
     card_id = cursor.fetchone()
     
-    print(card_id)
+    # print(card_id)
     
     conn.close()
 
@@ -499,7 +501,7 @@ def add(data:fs.Datasy):
             content=Row(
             alignment=MainAxisAlignment.CENTER,
             spacing=5,
-            content = [
+            controls = [
                 Icon(icons.SAVE, color=ColorPage.text),
                 Text("Save", color=ColorPage.text)
                 ],
